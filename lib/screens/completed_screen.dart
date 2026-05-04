@@ -1,0 +1,128 @@
+import 'dart:convert';
+
+import 'package:flutter/material.dart';
+import 'package:projects/core/services/preferences_manager.dart';
+
+import '../models/task_model.dart';
+import '../widgets/tasks_list_widget.dart';
+
+class CompletedScreen extends StatefulWidget {
+  const CompletedScreen({super.key});
+
+  @override
+  State<CompletedScreen> createState() => _CompletedScreenState();
+}
+
+class _CompletedScreenState extends State<CompletedScreen> {
+  bool isLoading = false;
+  List<TaskModel> completedTasks = [];
+
+  @override
+  void initState() {
+    super.initState();
+
+    _loadTask();
+  }
+
+  _deleteTask(int? id) async {
+    List<TaskModel> tasks = [];
+    if (id == null) return;
+
+    final finalTask = PreferencesManager().getString("tasks");
+
+    if (finalTask != null && finalTask.isNotEmpty) {
+      final taskAfterDecode = jsonDecode(finalTask) as List<dynamic>;
+
+      tasks = taskAfterDecode
+          .map((element) => TaskModel.fromJson(element))
+          .toList();
+      tasks.removeWhere((e) => e.id == id);
+
+      setState(() {
+        completedTasks.removeWhere((task) => task.id == id);
+      });
+
+      final updatedTask = tasks.map((element) => element.toJson()).toList();
+      await PreferencesManager().setString('tasks', jsonEncode(updatedTask));
+    }
+  }
+
+  void _loadTask() async {
+    setState(() {
+      isLoading = true;
+    });
+    // await Future.delayed(Duration(
+    //   seconds: 5,
+    // ));
+
+    final finalTask = PreferencesManager().getString("tasks");
+
+    if (finalTask != null && finalTask.isNotEmpty) {
+      final taskAfterDecode = jsonDecode(finalTask) as List<dynamic>;
+
+      setState(() {
+        completedTasks = taskAfterDecode
+            .map((element) => TaskModel.fromJson(element))
+            .where((element) => element.isDone == true)
+            .toList();
+      });
+    }
+    setState(() {
+      isLoading = false;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(18.0),
+          child: Text(
+            "Completed Tasks",
+            style: Theme.of(context).textTheme.labelLarge,
+          ),
+        ),
+        isLoading
+            ? Center(child: CircularProgressIndicator(color: Theme.of(context).colorScheme.secondary))
+            : Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: TasksListWidget(
+                    tasks: completedTasks,
+                    emptyWarningMessage: "No Completed Tasks Found",
+                    onTap: (value, index) async {
+                      setState(() {
+                        completedTasks[index!].isDone = value ?? false;
+                      });
+
+                      final allData = PreferencesManager().getString("tasks");
+
+                      if (allData != null) {
+                        List<TaskModel> allDataList =
+                            (jsonDecode(allData) as List)
+                                .map((element) => TaskModel.fromJson(element))
+                                .toList();
+                        final int newIndex = allDataList.indexWhere(
+                          (e) => e.id == completedTasks[index!].id,
+                        );
+                        allDataList[newIndex] = completedTasks[index!];
+                        await PreferencesManager().setString(
+                          "tasks",
+                          jsonEncode(allDataList),
+                        );
+                        _loadTask();
+                      }
+                    }, onDelete: (int? id) {
+                      _deleteTask(id);
+                  }, onEdit: (){
+                      _loadTask();
+                  },
+                  ),
+                ),
+              ),
+      ],
+    );
+  }
+}
