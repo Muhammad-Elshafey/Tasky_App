@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-import '../core/theme/theme_controller.dart';
+import '../../../core/theme/theme_controller.dart';
 
 class TaskArchivedWidget extends StatelessWidget {
   const TaskArchivedWidget({super.key, required this.totalTasks, required this.totalDoneTasks, required this.percent});

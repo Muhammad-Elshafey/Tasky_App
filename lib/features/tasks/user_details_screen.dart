@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:projects/core/widgets/custom_elevated_button.dart';
 import 'package:projects/core/widgets/custom_text_form_field.dart';
-import '../core/services/preferences_manager.dart';
+import '../../core/services/preferences_manager.dart';
 
 class UserDetailsScreen extends StatefulWidget {
   UserDetailsScreen({super.key});

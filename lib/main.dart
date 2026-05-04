@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:projects/core/theme/dark_theme.dart';
 import 'package:projects/core/theme/light_theme.dart';
 import 'package:projects/core/theme/theme_controller.dart';
-import 'package:projects/screens/home_screen.dart';
-import 'package:projects/screens/main_screen.dart';
-import 'package:projects/screens/welcome_screen.dart';
+import 'package:projects/features/home/home_screen.dart';
+import 'package:projects/features/navigation/main_screen.dart';
+import 'package:projects/features/welcome/welcome_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'core/services/preferences_manager.dart';

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:projects/core/widgets/custom_svg_image.dart';
 import 'package:projects/core/widgets/custom_text_form_field.dart';
-import 'package:projects/screens/main_screen.dart';
-import '../core/services/preferences_manager.dart';
+import 'package:projects/features/navigation/main_screen.dart';
+import '../../core/services/preferences_manager.dart';
 
 class WelcomeScreen extends StatelessWidget {
   WelcomeScreen({super.key});

@@ -1,11 +1,11 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:projects/widgets/task_item_widget.dart';
+import 'package:projects/core/components/task_item_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../core/widgets/custom_check_box.dart';
-import '../models/task_model.dart';
+import '../widgets/custom_check_box.dart';
+import '../../models/task_model.dart';
 
 class TasksListWidget extends StatelessWidget {
   const TasksListWidget({

@@ -5,9 +5,9 @@ import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:projects/core/theme/theme_controller.dart';
 import 'package:projects/core/widgets/custom_svg_image.dart';
-import 'package:projects/screens/user_details_screen.dart';
-import 'package:projects/screens/welcome_screen.dart';
-import '../core/services/preferences_manager.dart';
+import 'package:projects/features/tasks/user_details_screen.dart';
+import 'package:projects/features/welcome/welcome_screen.dart';
+import '../../core/services/preferences_manager.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
