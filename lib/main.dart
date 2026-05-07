@@ -7,6 +7,7 @@ import 'package:projects/features/navigation/main_screen.dart';
 import 'package:projects/features/welcome/welcome_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'core/constants/storage_key.dart';
 import 'core/services/preferences_manager.dart';
 
 void main() async {
@@ -15,7 +16,7 @@ void main() async {
   await PreferencesManager().init();
   ThemeController().init();
 
-  String? username = PreferencesManager().getString("username");
+  String? username = PreferencesManager().getString(StorageKey.username);
   runApp(MyApp(username: username));
 }
 

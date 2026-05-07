@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:projects/core/widgets/custom_elevated_button.dart';
 import 'package:projects/core/widgets/custom_text_form_field.dart';
+import '../../core/constants/storage_key.dart';
 import '../../core/services/preferences_manager.dart';
 
 class UserDetailsScreen extends StatefulWidget {
@@ -28,10 +29,10 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
 
   Future<void> _loadData() async {
     setState(() {
-      username = PreferencesManager().getString("username") ?? "Guest";
+      username = PreferencesManager().getString(StorageKey.username) ?? "Guest";
       userNameController.text = username;
       motivationQuote =
-          PreferencesManager().getString("motivationQuote") ??
+          PreferencesManager().getString(StorageKey.motivationQuote) ??
           "One task at a time. One step closer.";
       motivationQuoteController.text = motivationQuote;
     });
@@ -73,11 +74,11 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
               child: CustomElevatedButton(
                 onPressed: () async {
                   PreferencesManager().setString(
-                    "username",
+                    StorageKey.username,
                     userNameController.text,
                   );
                   PreferencesManager().setString(
-                    "motivationQuote",
+                    StorageKey.motivationQuote,
                     motivationQuoteController.text,
                   );
                   Navigator.pop(context, true);

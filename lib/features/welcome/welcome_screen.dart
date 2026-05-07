@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:projects/core/widgets/custom_svg_image.dart';
 import 'package:projects/core/widgets/custom_text_form_field.dart';
 import 'package:projects/features/navigation/main_screen.dart';
+import '../../core/constants/storage_key.dart';
 import '../../core/services/preferences_manager.dart';
 
 class WelcomeScreen extends StatelessWidget {
@@ -89,7 +90,7 @@ class WelcomeScreen extends StatelessWidget {
                           _key.currentState?.validate();
                           if (controller.text.trim().isNotEmpty) {
                             PreferencesManager().setString(
-                              "username",
+                              StorageKey.username,
                               controller.text,
                             );
                             Navigator.pushReplacement(
